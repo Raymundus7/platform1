@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .input-form {
+      margin-bottom: 20px;
+    }
+    .options-container {
+      display: none;
+    }
+    .option-input {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Input Form</h1>
+    <div class="input-form">
+      <label for="nama">Nama :</label>
+      <input type="text" id="nama" placeholder="Masukkan nama...">
+      <br>
+      <label for="jumlah">Jumlah Pilihan :</label>
+      <input type="number" id="jumlah" placeholder="Masukkan jumlah pilihan...">
+      <br>
+      <button onclick="showOptions()">OK</button>
+    </div>
+    <div class="options-container" id="optionsContainer"></div>
+    <button onclick="submitOptions()">Submit</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function showOptions() {
+      var jumlah = parseInt(document.getElementById('jumlah').value);
+      var optionsContainer = document.getElementById('optionsContainer');
+      optionsContainer.innerHTML = '';
+      for (var i = 1; i <= jumlah; i++) {
+        var label = document.createElement('label');
+        label.innerHTML = 'Pilihan ' + i + ' : ';
+        var input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('class', 'option-input');
+        input.setAttribute('placeholder', 'Masukkan teks pilihan ' + i + '...');
+        optionsContainer.appendChild(label);
+        optionsContainer.appendChild(input);
+        optionsContainer.appendChild(document.createElement('br'));
+      }
+      optionsContainer.style.display = 'block';
+    }
+
+    function submitOptions() {
+      var nama = document.getElementById('nama').value;
+      var options = [];
+      var optionInputs = document.getElementsByClassName('option-input');
+      for (var i = 0; i < optionInputs.length; i++) {
+        options.push(optionInputs[i].value);
+      }
+      var resultContainer = document.getElementById('result');
+      var jumlah = parseInt(document.getElementById('jumlah').value);
+      if (options.length !== jumlah) {
+        resultContainer.innerHTML = 'Silakan isi semua teks pilihan.';
+        return;
+      }
+      var selectedOption = '';
+      var radioButtons = document.getElementsByName('option');
+      for (var i = 0; i < radioButtons.length; i++) {
+        if (radioButtons[i].checked) {
+          selectedOption = options[i];
+
+          break;
+        }
+        }
+        function generateRadio(option1, option2) {
+    var radioContainer = document.getElementById("radioContainer");
+
+    // Clear any existing radio buttons
+    radioContainer.innerHTML = "";
+
+    // Create radio buttons
+    var radio1 = document.createElement("input");
+    radio1.setAttribute("type", "radio");
+    radio1.setAttribute("name", "options");
+    radio1.setAttribute("value", option1);
+    radioContainer.appendChild(radio1);
+
+    var label1 = document.createElement("label");
+    label1.appendChild(document.createTextNode(option1));
+    radioContainer.appendChild(label1);
+
+    radioContainer.appendChild(document.createElement("br"));
+
+    var radio2 = document.createElement("input");
+    radio2.setAttribute("type", "radio");
+    radio2.setAttribute("name", "options");
+    radio2.setAttribute("value", option2);
+    radioContainer.appendChild(radio2);
+
+    var label2 = document.createElement("label");
+    label2.appendChild(document.createTextNode(option2));
+    radioContainer.appendChild(label2);
+      }
+    
+      resultContainer.innerHTML = 'Hallo, nama saya ' + nama + ', saya mempunyai sejumlah ' + jumlah + ' pilihan yaitu ' + options.join(', ') + ', dan saya memilih ' + selectedOption + '.';
+    }
+  </script>
+</body>
+</html>
+    
